@@ -100,7 +100,7 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="420dp"
             android:visibility="gone"
             android:indeterminateTint="@color/buttonColor"
             app:layout_constraintEnd_toEndOf="parent"

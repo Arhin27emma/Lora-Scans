@@ -252,8 +252,13 @@ class SettingsFragment : ScreenFragment("Settings"), Logging {
         // show the spinner when [spinner] is true
         scanModel.spinner.observe(viewLifecycleOwner) { show ->
             binding.changeRadioButton.isEnabled = !show
-            binding.scanProgressBar.visibility = if (show) View.VISIBLE else View.GONE
-        }
+            binding.scanProgressBar.apply {
+                visibility = if (show) View.VISIBLE else View.GONE
+                indeterminateDrawable.setColorFilter(
+                    ContextCompat.getColor(context, R.color.buttonColor),
+                    android.graphics.PorterDuff.Mode.SRC_IN
+                )
+            }        }
 
         binding.usernameEditText.onEditorAction(EditorInfo.IME_ACTION_DONE) {
             debug("received IME_ACTION_DONE")
@@ -365,8 +370,8 @@ class SettingsFragment : ScreenFragment("Settings"), Logging {
             cardElevation = 8f
             setContentPadding(16, 16, 16, 16)  // Padding inside the CardView
             layoutParams = LinearLayout.LayoutParams(
-                660,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
             ).apply {
                 setMargins(0, 0, 0, 20)  // Add spacing between each tile
             }
