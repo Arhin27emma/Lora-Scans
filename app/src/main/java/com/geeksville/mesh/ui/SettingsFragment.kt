@@ -17,6 +17,8 @@
 
 package com.geeksville.mesh.ui
 
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.net.InetAddresses
 import android.os.Build
 import android.os.Bundle
@@ -341,15 +343,25 @@ class SettingsFragment : ScreenFragment("Settings"), Logging {
             text = device.name
             id = View.generateViewId()
             isEnabled = enabled
+            buttonTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.buttonColor))
+
             isChecked = device.fullAddress == scanModel.selectedNotNull
             setPadding(16, 16, 16, 16)  // Optional extra padding inside RadioButton
             //setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonColor))
         }
 
+        val isDarkTheme = context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
         // Create the CardView (Tile)
         val cardView = CardView(context).apply {
             radius = 16f  // Border radius 16dp
-            setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.appintro_background_color))
+            setCardBackgroundColor(
+                ContextCompat.getColor(
+                    context,
+                    if (isDarkTheme) R.color.appintro_background_color else R.color.appintro_desc_color
+                )
+            )
             cardElevation = 8f
             setContentPadding(16, 16, 16, 16)  // Padding inside the CardView
             layoutParams = LinearLayout.LayoutParams(
